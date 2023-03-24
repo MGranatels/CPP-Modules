@@ -1,0 +1,17 @@
+A class in C++ has 2 main characteristics:
+1. It can accept variables, functions, 
+2. It can countain access specifiers:
+	a) Private: Accessible only from within members of the same class 
+	b) Public:	Members are accessible from anywhere where the object is visible.
+	c) Protected: Accessible from within members of the same class and also derived members 
+		of their class 
+
+3. If there is no access specifier identified the default access of a variables is Private
+
+
+EX01:
+1. Start by creating a whil that is going to propmt the user to input information
+2. After the user inputs information have a functions that checks the user input:
+	a) ADD => Takes user to the functions that adds a contact
+	b) SEARCH => Shows all contact list and propmts the user again for index 
+	c) EXIT => Exits the program
