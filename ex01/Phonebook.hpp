@@ -7,12 +7,19 @@
 # include <string>
 
 class Phonebook {
+private:
+	void	check_contact_list();
+	static int	_ind;
+	static int	nb_cont;
+	Contact list[8];
 
 public:
+
 	Phonebook(void);
 	~Phonebook(void);
-	Contact list[8];
-	void	add_contact(int i);
+
+	void	add();
+	void	search();
 };
 
 #endif
