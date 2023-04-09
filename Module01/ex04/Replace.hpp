@@ -7,21 +7,20 @@
 
 class Replace {
 private:
-	std::string	seek_destroy(std::string line);
 	static int	text_size;
+	std::string	_replac;
+	std::string	_search;
+	std::string	_file_path;
+	std::string	seek_destroy(std::string line);
 	void 		get_file_size(std::ifstream &file, std::string line);
 	void		write_text(std::string *text);
+	void		write_file(std::string new_file);
 
 public:
-
-    Replace();
+    Replace(std::string replac, std::string search, std::string file_path);
     ~Replace();
 
-	std::string	replac;
-	std::string	search;
-	std::string	file_path;
 	void		read_file();
-	void		write_file(std::string new_file);
     // Member function declarations here
 };
 

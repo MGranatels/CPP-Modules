@@ -1,6 +1,9 @@
 #include "Replace.hpp"
 
-Replace::Replace() {
+Replace::Replace(std::string replac, std::string search, std::string file_path) {
+	this->_replac = replac;
+	this->_search = search;
+	this->_file_path = file_path;
 }
 
 Replace::~Replace() {
@@ -13,7 +16,7 @@ void	Replace::read_file()
 	int			i;
 
 	std::string line;
-	std::ifstream file(this->file_path.c_str());
+	std::ifstream file(this->_file_path.c_str());
 	if (!file.is_open())
 	{
 		std::cout << "Failed to open file!" << std::endl;
@@ -39,11 +42,11 @@ std::string	Replace::seek_destroy(std::string line)
 	pos = 0;
 	while (1)
 	{
-		pos = line.find(this->search);
+		pos = line.find(this->_search);
 		if (pos == std::string::npos)
 			break ;
-		line.erase(pos, this->search.length());
-		line.insert(pos, this->replac);
+		line.erase(pos, this->_search.length());
+		line.insert(pos, this->_replac);
 	}
 	return (line);
 }
@@ -67,5 +70,3 @@ void	Replace::get_file_size(std::ifstream &file, std::string line)
 	file.clear();
 	file.seekg(0, std::ios::beg);
 }
-
-

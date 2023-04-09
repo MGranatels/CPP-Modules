@@ -15,14 +15,11 @@
 
 int	main(int ac, char **av)
 {
-	Replace rep;
 	if (ac != 4)
 	{
 		std::cout << "Wrong number of arguments" << std::endl;	
 		return (0);	
 	}
-	rep.search = av[2];
-	rep.replac = av[3];
-	rep.file_path = av[1];
+	Replace rep(av[3], av[2], av[1]);
 	rep.read_file();
 }

@@ -14,11 +14,16 @@ int	main(void)
 		std::getline (std::cin, input);
 		if (input == "EXIT")
 			exit = 0;
-		if (input == "ADD")
+		else if (input == "ADD") {
 			phone.add();
-		if (input == "SEARCH")
+			std::cout << "> Anything else I can do for you: ";
+		}
+		else if (input == "SEARCH") {
 			phone.search();
-		std::cout << "> Anything else I can do for you: ";
+			std::cout << "> Anything else I can do for you: ";
+		}
+		else
+			std::cout << "Wrong Input. Try Again: ";
 	}
 	std::cout << "Hope to see you again soon!" << std::endl;
 }
