@@ -12,54 +12,53 @@
 
 #include "Fixed.hpp"
 
-Fixed::Fixed ( void ){
+Fixed::Fixed() {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed ( const Fixed &point){
+Fixed::Fixed(const Fixed& param) {
 	std::cout << "Copy constructor called" << std::endl;
-	this->setRawBits(point.getRawBits());
+	*this = param;
 }
 
-Fixed::Fixed( const int _nb )
-{
+Fixed::Fixed(const int num){
 	std::cout << "Int constructor called" << std::endl;
-	this->_fixedPoint = _nb;
+	this->_fixedNum = num << this->_fractional_bits;
 }
 
-Fixed::Fixed (const float _nb)
-{
+Fixed::Fixed(const float num){
 	std::cout << "Float constructor called" << std::endl;
-	this->_fixedPoint = _nb;
+	this->_fixedNum = num * pow(2, this->_fractional_bits);
 }
 
-Fixed& Fixed::operator=(const Fixed &point) {
-	std::cout << "Copy assignment operator called" << std::endl;
-	if (this != &point) {
-		this->_fixedPoint = point.getRawBits();
-	}
-	return *this;
-}
-
-
-Fixed::~Fixed ( void ){
+Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;
 }
 
-
-int	Fixed::getRawBits( void ) const{
-	std::cout << "getRawBits member function called" << std::endl;
-	return (this->_fixedPoint);	
+Fixed& Fixed::operator= (const Fixed& param)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_fixedNum = param.getRawBits();
+	return (*this);
 }
 
-void    Fixed::setRawBits( int const raw ) {
-    this->_fixedPoint = raw;
+int Fixed::getRawBits( void ) const{
+	return(this->_fixedNum);
+}
+void Fixed::setRawBits( int const raw ){
+	this->_fixedNum = raw;
 }
 
-float Fixed::toFloat( void ) const {
-    return ((float)this->_fixedPoint / (1 << this->_bit));
+float	Fixed::toFloat(void) const{
+	return (this->_fixedNum / pow(2, this->_fractional_bits));
 }
 
-int Fixed::toInt( void ) const {
-    return (this->_fixedPoint >> this->_bit);
+int		Fixed::toInt(void) const{
+	return (this->_fixedNum >> this->_fractional_bits);
+}
+
+std::ostream&	operator<<(std::ostream& cout, const Fixed& num){
+	cout << num.toFloat();
+
+	return (cout);
 }
