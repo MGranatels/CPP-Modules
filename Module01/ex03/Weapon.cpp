@@ -15,3 +15,17 @@ const  std::string Weapon::getType( void ) {
 void                Weapon::setType( std::string newType ) {
     this->_type = newType;
 }
+
+
+int		Weapon::weapon_damage( int value )
+{
+	if (this->_type == "Long Sword")
+		return (50);
+	if (this->_type == "Axe")
+		return (40);
+	if (this->_type == "Hammer")
+		return (70);
+	if (this->_type == "Staff")
+		return (20);
+	return (0);
+}

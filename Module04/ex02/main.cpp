@@ -5,33 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgranate_ls <mgranate_ls@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 18:41:12 by mgranate_ls       #+#    #+#             */
-/*   Updated: 2023/04/10 21:13:33 by mgranate_ls      ###   ########.fr       */
+/*   Created: 2023/05/06 18:48:29 by mgranate_ls       #+#    #+#             */
+/*   Updated: 2023/05/07 22:26:23 by mgranate_ls      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanA.hpp"
-#include "HumanB.hpp"
+#include "Dog.hpp"
+#include "WrongCat.hpp"
 
 int main()
 {
-	std::string wepon;
-	std::string input;
-	Weapon club = Weapon("crude spiked club");
-	HumanA bob("Bob", club);
-	HumanB jim("Jim");
-	while (bob.check_hp() > 0 && jim.check_hp() > 0)
-	{
-		std::getline (std::cin, input);
-		club.setType("Long Sword");
-		jim.setWeapon(club);
-		
-	}
-	bob.attack();
-	bob.attack();
-	
-	jim.attack();
-	club.setType("Axe");
-	jim.attack();
-	return 0;
+	unsigned int n = 100;
+	Animal *horde[n];
+
+	for (unsigned int i = 0; i < n; i++)
+		i < n/2 ? horde[i] = new Cat() : horde[i] = new Dog();
+	for (unsigned int i = 0; i < n; i++)
+		horde[i]->makeSound();
+	for (unsigned int i = 0; i < n; i++)
+		delete horde[i];
 }

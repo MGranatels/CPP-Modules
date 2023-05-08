@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgranate_ls <mgranate_ls@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 20:44:21 by mgranate_ls       #+#    #+#             */
-/*   Updated: 2023/04/10 21:09:18 by mgranate_ls      ###   ########.fr       */
+/*   Created: 2023/05/07 15:44:35 by mgranate_ls       #+#    #+#             */
+/*   Updated: 2023/05/07 22:07:43 by mgranate_ls      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_HPP
-#define HUMANA_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
-#include "Weapon.hpp"
+#include "Animal.hpp"
 
-class HumanA {
-
-private:
-	std::string _name;
-	int 		_hp = 100;
-	Weapon&		_weapon;
-
+class Cat : public Animal {
 public:
 
-    HumanA(std::string name, Weapon& weapon);
-    ~HumanA();
-	void		attack( void ) const;
-	void		setHp ( int hit );
-	const int	check_hp ( void );
+    Cat();
+    Cat(const Cat& other);
+	Cat(std::string name);
+    Cat& operator=(const Cat& other);
+    ~Cat();
 
-    // Member function declarations here
+	virtual void	makeSound() const;
+	virtual std::string	getType( void ) const;
 };
 
-#endif
+#endif 

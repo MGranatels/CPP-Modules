@@ -18,3 +18,16 @@ void    HumanB::attack( void ) const {
         std::cout << _name << " doesn't have a weapon to attack." << std::endl;
     }
 }
+
+void	HumanB::setHp ( int hit )
+{
+	std::cout << _name << " has taken" << hit << " Damage" << std::endl;
+	this->_hp -= hit;
+	if (this->_hp <= 0)
+		std::cout << _name << " Is Dead" << std::endl;
+}
+
+const int	HumanA::check_hp ( void )
+{
+	return (this->_hp);
+}
