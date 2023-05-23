@@ -16,6 +16,8 @@
 #include <iostream>
 
 class Animal {
+private:
+
 protected:
     std::string type;
 	std::string _name;
@@ -28,9 +30,11 @@ public:
     Animal& operator=(const Animal& other);
     virtual ~Animal();
 
-	virtual void	makeSound() const;
-	virtual std::string	getType( void ) const;
-    // Member function declarations here
+	virtual void	makeSound() const = 0;
+	virtual std::string	getType( void ) const = 0;
+    // By assigning it to zero it becames a pure virtual function. 
+	// This means I indicate the program that the function has no implementation
+	// in the Animal class and must be overridden by any derived class.
 };
 
 #endif // Animal_HPP

@@ -1,6 +1,6 @@
 #include "Animal.hpp"
 
-Animal::Animal() : type("Who am I?") {
+Animal::Animal( void ) : type("Who am I?") {
 		std::cout << "[Animal Default Constructor " << this->type << "]" << std::endl;	
 }
 

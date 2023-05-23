@@ -1,8 +1,7 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal() {
+Cat::Cat( void ) :  Animal(){
 	std::cout << "[Cat Default Constructer " << this->type << "]" << std::endl;
-	this->type = "Cat";
 	this->_brain = new Brain;
 }
 
@@ -30,16 +29,16 @@ Cat::Cat(std::string name) : Animal(name) {
 	this->_brain = new Brain;
 }
 
-Cat::~Cat() {
-	std::cout << "[Cat Destructer " << this->type << "]" << std::endl;
+Cat::~Cat( void ) {
 	delete this->_brain;
+	std::cout << "[Cat Destructer " << this->type << "]" << std::endl;
 }
 
-std::string	Cat::getType() const{
+std::string	Cat::getType( void ) const{
 	return (this->type);
 }
 
 
-void	Cat::makeSound() const {
-	std::cout << "Cat Miaus: Miau Miau" << std::endl;	
+void	Cat::makeSound( void ) const {
+	std::cout << this->type << " Miau Miau" << std::endl;	
 }

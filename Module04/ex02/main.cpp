@@ -11,17 +11,21 @@
 /* ************************************************************************** */
 
 #include "Dog.hpp"
-#include "WrongCat.hpp"
 
 int main()
 {
-	unsigned int n = 100;
-	Animal *horde[n];
+	Animal *rafeiro = new Dog;
+	Cat pantufa("Buzz");
+	Dog bolinhas("Spock");
 
-	for (unsigned int i = 0; i < n; i++)
-		i < n/2 ? horde[i] = new Cat() : horde[i] = new Dog();
-	for (unsigned int i = 0; i < n; i++)
-		horde[i]->makeSound();
-	for (unsigned int i = 0; i < n; i++)
-		delete horde[i];
+	rafeiro->getType();
+	rafeiro->makeSound();
+	
+	pantufa.getType();
+	pantufa.makeSound();
+
+	bolinhas.getType();
+	bolinhas.makeSound();
+
+	delete rafeiro;
 }

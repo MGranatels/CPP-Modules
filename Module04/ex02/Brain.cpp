@@ -1,11 +1,11 @@
 #include "Brain.hpp"
 
 Brain::Brain() {
-	std::cout << "[Brain Default Constructer]" << std::endl;
+	std::cout << "\e[0;33mDefault Constructor called of Brain\e[0m" << std::endl;
 }
 
 Brain::Brain(const Brain& copy) {
-	std::cout << "[Brain Copy Constructer]" << std::endl;
+	std::cout << "\e[0;33mCopy Constructor called of Brain\e[0m" << std::endl;
 	for (int i = 0; i < 100; i++){
 		this->ideas[i] = copy.ideas[i];
 	}
@@ -18,5 +18,5 @@ Brain& Brain::operator=(const Brain& assign) {
 }
 
 Brain::~Brain() {
-    // Destructor code here
+	std::cout << "\e[0;31mDestructor called of Brain\e[0m" << std::endl;
 }

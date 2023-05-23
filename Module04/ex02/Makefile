@@ -3,14 +3,12 @@ NAME		=	Animals
 CXX			=	c++
 
 SRCS		=	Animal.cpp 	    \
-				WrongAnimal.cpp \
 				Dog.cpp	 		\
 				Cat.cpp	 		\
-				WrongCat.cpp	\
 				Brain.cpp		\
 				main.cpp
 
-CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 #-fsanitize=address
+CXXFLAGS	=	-Wall -Wextra -Werror -g -Wshadow -std=c++98 #-fsanitize=address
 
 RM			=	rm -f
 

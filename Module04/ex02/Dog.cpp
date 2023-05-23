@@ -1,8 +1,13 @@
 #include "Dog.hpp"
 
-Dog::Dog() : Animal() {
+Dog::Dog( void ) : Animal() {
    	std::cout << "[Dog Default Constructer "  << this->type << "]" << std::endl;
-	this->type = "Dog";
+	this->_brain = new Brain;
+}
+
+Dog::Dog(std::string name) : Animal(name) {
+	std::cout << "[Dog Name Constructor " << this->type << "]" << std::endl;	
+	this->type = name;
 	this->_brain = new Brain;
 }
 
@@ -24,14 +29,9 @@ Dog& Dog::operator=(const Dog& other) {
     return *this;
 }
 
-Dog::Dog(std::string name) : Animal(name) {
-	std::cout << "[Dog Name Constructor " << this->type << "]" << std::endl;	
-	this->type = name;
-}
-
 Dog::~Dog() {
-	std::cout << "[Dog Destructer " << this->type << "]" << std::endl;
 	delete this->_brain;
+	std::cout << "[Dog Destructer " << this->type << "]" << std::endl;
 }
 
 std::string	Dog::getType() const{
@@ -39,5 +39,5 @@ std::string	Dog::getType() const{
 }
 
 void	Dog::makeSound() const {
-	std::cout << "Dog Barks: woof woof" << std::endl;	
+	std::cout << this->type << " woof woof" << std::endl;	
 }
