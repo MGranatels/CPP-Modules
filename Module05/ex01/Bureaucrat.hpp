@@ -1,8 +1,11 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
-#include <iostream>
-#include <string>
+# include <iostream>
+# include <string>
+# include "Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 	private:
@@ -10,21 +13,24 @@ class Bureaucrat {
 		int 		_grade;
 
 	public:
+		//Constructers and Destructers
 		Bureaucrat();
 		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat& other);
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		// Member function declarations here
+		// Setter and Getters
 		std::string	getName() const;
 		int			getGrade() const;
-
 		void		setName(std::string name);
 		void		setGrade(int grade);
 
+		// Member Functions
 		void	incrementBur();
 		void	decrementBur();
+		void	signForm(Form& F);
+
 		class GradeTooLowException : public std::exception {
 			public:
 				virtual	const char* what()	const throw();
