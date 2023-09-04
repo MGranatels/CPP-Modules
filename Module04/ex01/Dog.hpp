@@ -7,9 +7,8 @@
 class Dog : public Animal {
 private:
 	Brain *_brain;
-public:
-    int _dogCat;
 
+public:
     Dog( void );
     Dog(const Dog& other);
 	Dog(std::string name);

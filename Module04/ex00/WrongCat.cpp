@@ -12,7 +12,7 @@
 
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat() : WrongAnimal() {
+WrongCat::WrongCat( void ) : WrongAnimal() {
 	std::cout << "[WrongCat Default Constructer " << this->type << "]" << std::endl;
 	this->type = "Dog";
 }
@@ -42,5 +42,5 @@ std::string	WrongCat::getType() const{
 }
 
 void	WrongCat::makeSound() const {
-	std::cout << "Cat Now Barks: woof woof " << std::endl;	
+	std::cout << "Cat Now Barks: woof woof" << std::endl;	
 }

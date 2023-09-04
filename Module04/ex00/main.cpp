@@ -19,13 +19,14 @@ const Animal* meta = new Animal();
 const Animal* j = new Dog();
 const Animal* i = new Cat();
 const WrongAnimal *h = new WrongCat();
+
+
 Cat meow ("Golden Cat");
 Cat grwal( meow );
 
 std::cout << j->getType() << " " << std::endl;
 std::cout << i->getType() << " " << std::endl;
-std::cout << "I should be a cat but I am actually a: " << std::endl;
-std::cout << h->getType() << " " << std::endl;
+std::cout << "I should be a cat but I am actually a: " << h->getType() << std::endl;
 //grwal.makeSound();
 meow.makeSound();
 std::cout << "Grwal and Meow Should be the same type: " << grwal.getType() << " " << std::endl;

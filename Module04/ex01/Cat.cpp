@@ -4,6 +4,7 @@ Cat::Cat() : Animal() {
 	std::cout << "[Cat Default Constructer " << this->type << "]" << std::endl;
 	this->type = "Cat";
 	this->_brain = new Brain;
+	this->_brain->getBrainIdeas();
 }
 
 Cat::Cat(const Cat& other) : Animal(other.type) {
@@ -31,8 +32,8 @@ Cat::Cat(std::string name) : Animal(name) {
 }
 
 Cat::~Cat() {
-	std::cout << "[Cat Destructer " << this->type << "]" << std::endl;
 	delete this->_brain;
+	std::cout << "[Cat Destructer " << this->type << "]" << std::endl;
 }
 
 std::string	Cat::getType() const{

@@ -9,8 +9,6 @@ private:
 	Brain *_brain;
 
 public:
-    int _dogCat;
-
     Dog( void );
     Dog(const Dog& other);
 	Dog(std::string name);

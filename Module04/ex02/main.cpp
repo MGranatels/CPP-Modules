@@ -15,9 +15,11 @@
 int main()
 {
 	Animal *rafeiro = new Dog;
+	// Animal	test;
+
 	Cat pantufa("Buzz");
 	Dog bolinhas("Spock");
-
+	// test->makeSound(); 
 	rafeiro->getType();
 	rafeiro->makeSound();
 	

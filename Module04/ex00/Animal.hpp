@@ -18,10 +18,8 @@
 class Animal {
 protected:
     std::string type;
-	std::string _name;
 
 public:
-
     Animal();
     Animal(const Animal& other);
 	Animal(std::string name);

@@ -29,6 +29,7 @@ Fixed::Fixed(const int num){
 Fixed::Fixed(const float num){
 	std::cout << "Float constructor called" << std::endl;
 	this->_fixedNum = roundf(num * pow(2, this->_fractional_bits));
+	std::cout << "FLota Const tester: " << this->_fixedNum;
 }
 
 Fixed::~Fixed() {

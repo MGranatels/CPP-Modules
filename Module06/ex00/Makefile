@@ -1,14 +1,10 @@
-NAME		=	Animals
+NAME		=	Converter
 
 CXX			=	c++
 
-SRCS		=	Animal.cpp 	    \
-				Dog.cpp	 		\
-				Cat.cpp	 		\
-				Brain.cpp		\
-				main.cpp
+SRCS		=	$(wildcard *.cpp)
 
-CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 -Wno-shadow #-fsanitize=address
+CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 #-fsanitize=address
 
 RM			=	rm -f
 

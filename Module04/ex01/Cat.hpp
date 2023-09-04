@@ -20,6 +20,7 @@
 class Cat : public Animal {
 private:
 	Brain *_brain;
+
 public:
 
     Cat();
@@ -30,6 +31,7 @@ public:
 
 	virtual void	makeSound() const;
 	virtual std::string	getType( void ) const;
+	void	getIdeas( void ) const;
 };
 
 #endif 

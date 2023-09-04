@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include "Dog.hpp"
-#include "WrongCat.hpp"
 
 int main()
 {
-	unsigned int n = 100;
+	unsigned int n = 5;
 	Animal *horde[n];
 
 	for (unsigned int i = 0; i < n; i++)

@@ -29,7 +29,7 @@ void	ScavTrap::attack ( const std::string& target)
 
 void	ScavTrap::guardGate( void ){
 	std::cout << std::endl << "---------- " << this->getName() << " Guard Gate ----------" << std::endl;
-	std::cout << "> SlapTrap " << this->getName() << "Uses Special Ability Guard Gate and Becames Invulnerable" << std::endl;
+	std::cout << "> SlapTrap is in Gate Keeper Mode" << this->getName() << " and Becames Invulnerable" << std::endl;
 	std::cout << "---------- " << this->getName() << " End Action -------------" << std::endl;
 	this->_guardGate = 1;
 }
