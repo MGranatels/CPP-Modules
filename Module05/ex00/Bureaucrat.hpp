@@ -16,13 +16,13 @@ class Bureaucrat {
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		// Member function declarations here
+		// Getters and Setterrs
 		std::string	getName() const;
 		int			getGrade() const;
-
 		void		setName(std::string name);
 		void		setGrade(int grade);
 
+		// Member Functions
 		void	incrementBur();
 		void	decrementBur();
 		class GradeTooLowException : public std::exception {

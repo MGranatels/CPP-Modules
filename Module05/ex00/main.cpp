@@ -6,7 +6,7 @@
 /*   By: mgranate_ls <mgranate_ls@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:33:04 by mgranate_ls       #+#    #+#             */
-/*   Updated: 2023/07/22 00:00:33 by mgranate_ls      ###   ########.fr       */
+/*   Updated: 2023/09/04 09:42:36 by mgranate_ls      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main ( void ) 
 {
-	try { Bureaucrat letsTry("TooHigh", 151);	
+	try { Bureaucrat letsTry("TooLow", 151);	
 	}
 	catch (Bureaucrat::GradeTooLowException &e) {
 		std::cout << e.what() << std::endl;
@@ -24,7 +24,7 @@ int	main ( void )
 	}
 	
 	
-	try { Bureaucrat letsTry("TooLow", 0);	
+	try { Bureaucrat letsTry("TooHigh", 0);	
 	}
 	catch (Bureaucrat::GradeTooLowException &e) {
 		std::cout << e.what() << std::endl;

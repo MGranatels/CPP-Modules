@@ -1,24 +1,29 @@
-CC			= 	g++ -std=c++98
-CFLAGS		= 	-Wall -Wextra -Werror -Wshadow  -g\
-				# -fsanitize=address
-NAME		= 	bureau
+NAME		=	Converter
 
-SRCS		=	$(wildcard *.cpp)
+CXX			=	c++
 
-all: $(NAME)
+SRCS		=	main.cpp \
+				Bureaucrat.cpp \
+				Aform.cpp \
+				PresidentialPardonForm.cpp \
 
-$(NAME): $(SRCS)
-	@$(CC) $(CFLAGS) $(SRCS) -I. -o $(NAME)
+CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 #-fsanitize=address
 
-fclean:
-	@rm -rf $(NAME)
+RM			=	rm -f
 
-re: fclean all
+OBJS		=	$(SRCS:%.cpp=%.o)
 
-clr:
-	@clear
+all:		$(NAME)
 
-e: clr re clr
-	@./$(NAME)
+$(NAME):	$(OBJS)
+		$(CXX) $(SRCS) $(CXXFLAGS) -o $(NAME)
 
-.PHONY: all fclean re e cls
+clean:
+			$(RM) $(OBJS)
+
+fclean:		clean
+			$(RM) $(NAME)
+
+re:			fclean all
+
+.PHONY:		all clean fclean re

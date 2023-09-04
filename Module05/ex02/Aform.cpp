@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "Aform.hpp"
 
 Form::Form() : _name("Default"), _isSigned(false), _signGrade(75), _execGrade(150)
 {
@@ -24,7 +24,7 @@ Form & Form::operator=(const Form &assign)
 	return *this;
 }
 
-Form::Form(const Form &copy) : _name(copy.getName()), _isSigned(false), _signGrade(copy.getSignGrade()), _execGrade(copy.getExecGrade())
+Form::Form(const Form& copy) : _name(copy.getName()), _isSigned(false), _signGrade(copy.getSignGrade()), _execGrade(copy.getExecGrade())
 {
 	std::cout << "\e[0;33mCopy Constructor called of Form\e[0m" << std::endl;
 }

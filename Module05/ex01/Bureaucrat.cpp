@@ -71,13 +71,11 @@ std::ostream &operator <<(std::ostream &out, const Bureaucrat &B)
 
 void	Bureaucrat::signForm(Form& F)
 {
-	try 
-	{
+	try  {
 		F.beSigned(*this);
 		std::cout << "Bureaucrat " << this->_name << " signed " << F.getName() << " Form" << std::endl;
 	}
-	catch (const Form::GradeTooLowException& e)
-	{
+	catch (const Form::GradeTooLowException& e) {
 		std::cerr << e.what() << std::endl;
 		std::cerr << this->_name << " couldn't sign " << F.getName() \
 		<< " because his grade is not high enough." << std::endl;

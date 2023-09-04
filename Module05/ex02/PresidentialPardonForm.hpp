@@ -5,16 +5,19 @@
 #include <string>
 
 class PresidentialPardonForm {
-public:
-    int const _signGrade;
-    int const _execGrade;
-
-    PresidentialPardonForm();
-    PresidentialPardonForm(const PresidentialPardonForm& other);
-    PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
-    ~PresidentialPardonForm();
-
-    // Member function declarations here
+	private:
+		int const _signGrade;
+		int const _execGrade;
+	public:
+		PresidentialPardonForm();
+		PresidentialPardonForm(const PresidentialPardonForm& other);
+		PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+		~PresidentialPardonForm();
+		
+		//Setter and Getters
+		int		getSignGrade( void ) const;
+		int		getExecGrade( void ) const;
+		// Member function declarations here
 };
 
 #endif // PresidentialPardonForm_HPP

@@ -2,6 +2,7 @@
 
 Form::Form() : _name("Default"), _isSigned(false), _signGrade(75), _execGrade(150)
 {
+	this->_isSigned = false;
 	std::cout << "\e[0;33mDefault Constructor called of Form\e[0m" << std::endl;
 }
 
@@ -61,11 +62,11 @@ bool	Form::getIsGradeSign( void ) const {
 }
 
 const char	*Form::GradeTooHighException::what() const throw() {
-		return "Grade Too high!";
+		return "Too high to be signed!";
 }
 
 const	char	*Form::GradeTooLowException::what() const throw() {
-		return "Grade Too Low!";
+		return "Too Low to be signed!";
 }
 
 void	Form::beSigned(Bureaucrat& bureau) {
