@@ -16,10 +16,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat& copy) : _name(copy.getName()), _grade(c
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& assign) {
-    this->_grade = assign.getGrade();  
+    this->_grade = assign.getGrade();
     return *this;
 }
-
 
 Bureaucrat::~Bureaucrat() {
     // Destructor code here
@@ -69,14 +68,14 @@ std::ostream &operator <<(std::ostream &out, const Bureaucrat &B)
 	return out;
 }
 
-void	Bureaucrat::signForm(Form& F)
+void	Bureaucrat::signForm(AForm& F)
 {
 	try 
 	{
 		F.beSigned(*this);
-		std::cout << "Bureaucrat " << this->_name << " signed " << F.getName() << " Form" << std::endl;
+		std::cout << "Bureaucrat " << this->_name << " signed " << F.getName() << " AForm" << std::endl;
 	}
-	catch (const Form::GradeTooLowException& e)
+	catch (const AForm::GradeTooLowException& e)
 	{
 		std::cerr << e.what() << std::endl;
 		std::cerr << this->_name << " couldn't sign " << F.getName() \

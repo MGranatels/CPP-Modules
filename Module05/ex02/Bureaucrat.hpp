@@ -3,9 +3,9 @@
 
 # include <iostream>
 # include <string>
-# include "Aform.hpp"
+# include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 	private:
@@ -29,7 +29,7 @@ class Bureaucrat {
 		// Member Functions
 		void	incrementBur();
 		void	decrementBur();
-		void	signForm(Form& F);
+		void	signForm(AForm& F);
 
 		class GradeTooLowException : public std::exception {
 			public:

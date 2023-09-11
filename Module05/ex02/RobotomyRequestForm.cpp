@@ -1,37 +1,34 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : _signGrade(145), _execGrade(137) {
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("Robotomy Request", 72, 45), _target(target){
+	std::cout << "\e[0;33mParameterConstructor called of Presidencial Form\e[0m" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& copy): _signGrade(copy.getSignGrade()), _execGrade(copy.getExecGrade() {
-    // Copy constructor code here
-}
 
-RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& assign) {
-	if (this->_signGrade <= assign.getSignGrade())
-		this->_isSigned = assign.getIsGradeSign();
-	else
-		throw Form::GradeTooLowException();
-	return *this;
+RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm &copy) {
+    copy.setIsSign(this->getIsGradeSign());
+    return *this;
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {
-    // Destructor code here
+	std::cout << "\e[0;33mDefault Destructor called of \e[0m" << std::endl;
 }
 
-int	RobotomyRequestForm::getSignGrade( void ) const {
-	return this->_signGrade;
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
+    if (!this->getIsGradeSign())
+        throw RobotomyRequestForm::NotSign();
+    else if (executor.getGrade() > this->getExecGrade()) {
+        throw RobotomyRequestForm::GradeTooLowException();
+	}
+	std::cout << "Making some drilling noises: Cling Plink" << std::endl;
+	std::srand(static_cast<unsigned int>(std::time(NULL)));
+    int num = rand() % 2;
+    if (!num)
+        std::cout << this->getName() << " has been robotomized successfully" << std::endl;
+    else
+        std::cerr << this->getName() << " robotomization failed." << std::endl;
 }
 
-int	RobotomyRequestForm::getExecGrade( void ) const {
-	return this->_execGrade;
-}
-
-
-const char	*RobotomyRequestForm::GradeTooHighException::what() const throw() {
-		return "Grade Too high!";
-}
-
-const	char	*RobotomyRequestForm::GradeTooLowException::what() const throw() {
-		return "Grade Too Low!";
+const char	*RobotomyRequestForm::NotSign::what() const throw () {
+	return "Robot Form Not signed";
 }

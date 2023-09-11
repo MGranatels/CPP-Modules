@@ -3,17 +3,21 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include "AForm.hpp"
 
-class ShrubberyCreationForm {
-public:
-    int const _signGrade;
-    int const _execGrade;
-
-    ShrubberyCreationForm();
-    ShrubberyCreationForm(const ShrubberyCreationForm& other);
-    ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
-    ~ShrubberyCreationForm();
-
+class ShrubberyCreationForm : public AForm {
+	private:
+		const std::string _target;
+	public:
+		ShrubberyCreationForm(const std::string &target);
+		ShrubberyCreationForm& operator=(ShrubberyCreationForm& copy);
+		~ShrubberyCreationForm();
+		void	execute(Bureaucrat const &executor) const;
+		class NotSign : public std::exception {
+		public:
+			virtual	const char* what()	const throw();
+		};
     // Member function declarations here
 };
 

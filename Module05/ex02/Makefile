@@ -4,8 +4,10 @@ CXX			=	c++
 
 SRCS		=	main.cpp \
 				Bureaucrat.cpp \
-				Aform.cpp \
+				AForm.cpp \
 				PresidentialPardonForm.cpp \
+				ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp
 
 CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 #-fsanitize=address
 
@@ -23,6 +25,7 @@ clean:
 
 fclean:		clean
 			$(RM) $(NAME)
+			$(RM) trees.txt
 
 re:			fclean all
 

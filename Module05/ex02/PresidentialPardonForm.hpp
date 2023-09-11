@@ -3,21 +3,23 @@
 
 #include <iostream>
 #include <string>
+#include "AForm.hpp"
 
-class PresidentialPardonForm {
+class PresidentialPardonForm : public AForm {
 	private:
-		int const _signGrade;
-		int const _execGrade;
+		const std::string _target;
 	public:
-		PresidentialPardonForm();
+		PresidentialPardonForm(const std::string &target);
 		PresidentialPardonForm(const PresidentialPardonForm& other);
-		PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+		PresidentialPardonForm& operator=(PresidentialPardonForm &copy);
 		~PresidentialPardonForm();
 		
-		//Setter and Getters
-		int		getSignGrade( void ) const;
-		int		getExecGrade( void ) const;
 		// Member function declarations here
+		void	execute(Bureaucrat const &executor) const;
+		class NotSign : public std::exception {
+			public:
+				virtual	const char* what()	const throw();
+		};
 };
 
 #endif // PresidentialPardonForm_HPP

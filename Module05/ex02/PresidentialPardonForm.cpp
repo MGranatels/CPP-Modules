@@ -1,28 +1,27 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() {
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Presidencial Pardon", 25, 5), _target(target){
+	std::cout << "\e[0;33mParameterConstructor called of Presidencial Form\e[0m" << std::endl;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& copy) :  _signGrade(copy.getSignGrade()), _execGrade(copy.getExecGrade()) {
-    // Copy constructor code here
-}
 
-PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& assign) {
-	if (this->_signGrade <= assign.getSignGrade())
-		this->_isSigned = assign.getIsGradeSign();
-	else
-		throw Form::GradeTooLowException();
-	return *this;
+PresidentialPardonForm& PresidentialPardonForm::operator=(PresidentialPardonForm &copy) {
+    copy.setIsSign(this->getIsGradeSign());
+    return *this;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm() {
-    // Destructor code here
+	std::cout << "\e[0;33mDefault Destructor called of \e[0m" << std::endl;
 }
 
-int	Form::getExecGrade( void ) const {
-	return this->_execGrade;
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const {
+    if (!this->getIsGradeSign())
+        throw PresidentialPardonForm::NotSign();
+    else if (executor.getGrade() > this->getExecGrade())
+        throw PresidentialPardonForm::GradeTooLowException();
+    std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
 
-bool	Form::getIsGradeSign( void ) const {
-	return  this->_isSigned;
+const char	*PresidentialPardonForm::NotSign::what() const throw () {
+	return "Presidential Form Not signed";
 }
