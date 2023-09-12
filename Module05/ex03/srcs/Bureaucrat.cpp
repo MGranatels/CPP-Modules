@@ -16,10 +16,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat& copy) : _name(copy.getName()), _grade(c
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& assign) {
-    this->_grade = assign.getGrade();  
+    this->_grade = assign.getGrade();
     return *this;
 }
-
 
 Bureaucrat::~Bureaucrat() {
     // Destructor code here
@@ -43,11 +42,11 @@ void	Bureaucrat::setGrade(int grade) {
 }
 
 const char	*Bureaucrat::GradeTooHighException::what() const throw() {
-		return "\e[0;31mGrade Too high!\e[0m";
+		return "Bureaucrat caught execption: \e[0;31mGrade Too high!";
 }
 
 const	char	*Bureaucrat::GradeTooLowException::what() const throw() {
-		return "\e[0;31mGrade Too Low!\e[0m";
+		return "Bureaucrat caught execption: \e[0;31mGrade Too Low!";
 }
 
 void	Bureaucrat::incrementBur() {
@@ -69,15 +68,38 @@ std::ostream &operator <<(std::ostream &out, const Bureaucrat &B)
 	return out;
 }
 
-void	Bureaucrat::signForm(Form& F)
+void	Bureaucrat::signForm(AForm& F)
 {
-	try  {
+	try 
+	{
 		F.beSigned(*this);
-		std::cout << "Bureaucrat " << this->_name << " signed " << F.getName() << " Form" << std::endl;
+		std::cout << "\e[0;32mBureaucrat \e[0m" << this->_name << " \e[0;32msigned " << F.getName() << " Form\e[0m" << std::endl;
 	}
-	catch (const Form::GradeTooLowException& e) {
+	catch (const AForm::GradeTooLowException& e)
+	{
 		std::cerr << e.what() << std::endl;
-		std::cerr << this->_name << "\e[0;31m couldn't sign " << F.getName() \
+		std::cerr << this->_name << "\e[0;31m couldn't sign, " << F.getName() \
+		<< " grade not high enough.\e[0m" << std::endl;
+	}
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->_name << " executes " << form.getName() << std::endl;
+	}
+	catch (const AForm::GradeTooLowException &e)
+	{
+		std::cerr << e.what() << std::endl;
+		std::cerr << this->_name << "\e[0;31m couldn't execute " << form.getName() \
 		<< " because his grade is not high enough.\e[0m" << std::endl;
+	}
+	catch (const AForm::FormNotSignedException &e)
+	{
+		std::cerr << e.what() << std::endl;
+		std::cerr << this->_name << "\e[0;31m couldn't execute " << form.getName() \
+		<< " because the form is not signed.\e[0m" << std::endl;
 	}
 }

@@ -1,5 +1,5 @@
-CC			= 	g++ -std=c++98
-CFLAGS		= 	-Wall -Wextra -Werror -Wshadow  -g\
+CXX			= 	g++ -std=c++98
+CXXFLAGS		= 	-Wall -Wextra -Werror -Wshadow  -g\
 				# -fsanitize=address
 NAME		= 	bureau
 SRCS		=	$(wildcard *.cpp)
@@ -7,7 +7,7 @@ SRCS		=	$(wildcard *.cpp)
 all: $(NAME)
 
 $(NAME): $(SRCS)
-	@$(CC) $(CFLAGS) $(SRCS) -I. -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(SRCS) -I. -o $(NAME)
 
 fclean:
 	@rm -rf $(NAME)

@@ -37,11 +37,12 @@ Form::~Form() {
 
 std::ostream &operator <<(std::ostream &out, Form &F)
 {
-	out << "From Name: " << F.getName() << std::endl;
-	out << "Sign Grade: " << F.getSignGrade() << std::endl;
-	out << "Execute Grade: " << F.getExecGrade() << std::endl;
-	out << "Is Grade Signed: " << F.getIsGradeSign() << std::endl;
-
+	out << "------------------------------------------------" << std::endl;
+	out << "\e[1;34mForm Name: \e[0m" << F.getName() << std::endl;
+	out << "\e[1;34mSign Grade: \e[0m" << F.getSignGrade() << std::endl;
+	out << "\e[1;34mExecute Grade: \e[0m" << F.getExecGrade() << std::endl;
+	out << "\e[1;34mIs Grade Signed: \e[0m" << F.getIsGradeSign() << std::endl;
+	out << "------------------------------------------------" << std::endl;
 	return out;
 }
 
@@ -62,11 +63,11 @@ bool	Form::getIsGradeSign( void ) const {
 }
 
 const char	*Form::GradeTooHighException::what() const throw() {
-		return "Too high to be signed!";
+		return "\e[0;31mToo high to be signed!\e[0m";
 }
 
 const	char	*Form::GradeTooLowException::what() const throw() {
-		return "Too Low to be signed!";
+		return "\e[0;31mToo Low to be signed!\e[0m";
 }
 
 void	Form::beSigned(Bureaucrat& bureau) {

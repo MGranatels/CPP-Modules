@@ -6,7 +6,7 @@
 /*   By: mgranate_ls <mgranate_ls@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 18:04:40 by bcarreir          #+#    #+#             */
-/*   Updated: 2023/09/04 10:45:28 by mgranate_ls      ###   ########.fr       */
+/*   Updated: 2023/09/12 17:49:24 by mgranate_ls      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,9 @@ int main()
 		a.signForm(f);
 		std::cout << f << std::endl;
 	}
-	catch (Bureaucrat::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Bureaucrat::GradeTooHighException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooHighException &e) {
-		std::cout << e.what() << std::endl;
-	}
+	catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
 
 	try
 	{
@@ -45,18 +36,9 @@ int main()
 		a.signForm(f);
 		std::cout << f << std::endl;
 	}
-	catch (Bureaucrat::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Bureaucrat::GradeTooHighException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooLowException &e) {
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooHighException &e) {
-		std::cout << e.what() << std::endl;
-	}
+	catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
 
 	try
 	{
@@ -68,20 +50,7 @@ int main()
 		a.signForm(f);
 		std::cout << f << std::endl;
 	}
-	catch (Bureaucrat::GradeTooLowException &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	catch (Bureaucrat::GradeTooHighException &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooLowException &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	catch (Form::GradeTooHighException &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
