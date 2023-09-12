@@ -1,0 +1,8 @@
+{
+	"settings": {
+		"C_Cpp.default.includePath": [
+		  "${workspaceFolder}/includes",
+		  "${default}"
+		]
+	  }
+}

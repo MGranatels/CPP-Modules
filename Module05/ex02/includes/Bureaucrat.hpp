@@ -30,7 +30,7 @@ class Bureaucrat {
 		void	incrementBur();
 		void	decrementBur();
 		void	signForm(AForm& F);
-
+		void	executeForm(AForm const & form);
 		class GradeTooLowException : public std::exception {
 			public:
 				virtual	const char* what()	const throw();

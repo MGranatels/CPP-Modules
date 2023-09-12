@@ -1,7 +1,7 @@
-#include "PresidentialPardonForm.hpp"
+#include <PresidentialPardonForm.hpp>
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Presidencial Pardon", 25, 5), _target(target){
-	std::cout << "\e[0;33mParameterConstructor called of Presidencial Form\e[0m" << std::endl;
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm(target, 25, 5), _target(target) {
+	std::cout << "\e[0;33mParameter Constructor called of Presidencial Form\e[0m " << _target << std::endl;
 }
 
 
@@ -19,9 +19,9 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor) const {
         throw PresidentialPardonForm::NotSign();
     else if (executor.getGrade() > this->getExecGrade())
         throw PresidentialPardonForm::GradeTooLowException();
-    std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
+    std::cout << this->getName() << "\e[0;32m has been pardoned by Zaphod Beeblebrox\e[0m" << std::endl;
 }
 
 const char	*PresidentialPardonForm::NotSign::what() const throw () {
-	return "Presidential Form Not signed";
+	return "PresidentialPardonForm caught exeption: \e[0;31m This form was not signed!.\e[0m";
 }

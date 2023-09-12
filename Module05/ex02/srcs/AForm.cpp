@@ -1,10 +1,10 @@
-#include "AForm.hpp"
+#include "../includes/AForm.hpp"
 
 AForm::AForm(void) : _name("Default"),
                      _signGrade(150),
                      _execGrade(150),
                      _isSigned(false) {
-    // std::cout << "Called AForm default constructor" << std::endl;
+    std::cout << "\e[0;33mDefault Constructor called of Form\e[0m " << _name << std::endl;
 }
 
 AForm::AForm(std::string name, const int gradeRequired, const int gradeExec) : _name(name),
@@ -15,8 +15,9 @@ AForm::AForm(std::string name, const int gradeRequired, const int gradeExec) : _
         throw AForm::GradeTooLowException();
     else if (gradeRequired < 1 || gradeExec < 1)
         throw AForm::GradeTooHighException();
-    std::cout << "Called AForm constructor with name and grade" << std::endl;
+    std::cout << "\e[0;33mParameter Constructor called of Form\e[0m " << _name << std::endl;
 }
+
 AForm & AForm::operator=(const AForm &assign)
 {
 	if (this->_signGrade <= assign.getSignGrade())
@@ -35,19 +36,18 @@ AForm::AForm(const AForm& copy) : _name(copy.getName()),
 
 AForm::~AForm() {
 	std::cout << "\e[0;33mDestructer called of AForm\e[0m" << std::endl;
-    // Destructor code here
 }
 
 std::ostream &operator <<(std::ostream &out, AForm &F)
 {
-	out << "From Name: " << F.getName() << std::endl;
-	out << "Sign Grade: " << F.getSignGrade() << std::endl;
-	out << "Execute Grade: " << F.getExecGrade() << std::endl;
-	out << "Is Grade Signed: " << F.getIsGradeSign() << std::endl;
-
+	out << "------------------------------------------------" << std::endl;
+	out << "\e[1;34mForm Name: \e[0m" << F.getName() << std::endl;
+	out << "\e[1;34mSign Grade: \e[0m" << F.getSignGrade() << std::endl;
+	out << "\e[1;34mExecute Grade: \e[0m" << F.getExecGrade() << std::endl;
+	out << "\e[1;34mIs Grade Signed: \e[0m" << F.getIsGradeSign() << std::endl;
+	out << "------------------------------------------------" << std::endl;
 	return out;
 }
-
 
 std::string	AForm::getName( void ) const {
 	return this->_name;
@@ -66,11 +66,15 @@ int	AForm::getExecGrade( void ) const {
 }
 
 const char	*AForm::GradeTooHighException::what() const throw() {
-		return "Grade Too high!";
+		return "AForm caught exeption: \e[0;31mGrade Out of Bounds Too High!\e[0m";
 }
 
 const	char	*AForm::GradeTooLowException::what() const throw() {
-		return "Grade Too Low!";
+		return "AForm caught exeption: \e[0;31mGrade Too Low!\e[0m";
+}
+
+const	char	*AForm::FormNotSignedException::what() const throw() {
+		return "AForm caught exeption: \e[0;31mForm Not Signed!\e[0m";
 }
 
 void	AForm::beSigned(Bureaucrat& bureau) {

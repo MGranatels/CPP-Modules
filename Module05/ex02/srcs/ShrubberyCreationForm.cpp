@@ -1,6 +1,6 @@
-#include "ShrubberyCreationForm.hpp"
+#include <ShrubberyCreationForm.hpp>
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("Shrubbery Request", 145, 137), _target(target) {
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm(target, 145, 137), _target(target) {
 	std::cout << "\e[0;33mParameter Constructor called of Shrubbery Form\e[0m" << std::endl;
 }
 
@@ -14,6 +14,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
+	std::string fileName = this->getName() + "_shrubbery.txt";
     if (!this->getIsGradeSign())
         throw ShrubberyCreationForm::NotSign();
     else if (executor.getGrade() > this->getExecGrade())
@@ -21,7 +22,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
 
     std::cout << this->getName() << " is designing an ASCII tree" << std::endl;
 	std::ofstream outputFile;
-	outputFile.open("trees.txt");
+	outputFile.open(fileName.c_str());
 	if (!outputFile.is_open()) {
 		std::cerr << "Error opening the file."	<< std::endl;
 		return ;
@@ -54,5 +55,5 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
 }
 
 const char	*ShrubberyCreationForm::NotSign::what() const throw () {
-	return "ShrubberyCreationForm Not signed";
+	return "ShrubberyCreationForm caught exeption: \e[0;31m This form was not signed!.\e[0m";
 }
