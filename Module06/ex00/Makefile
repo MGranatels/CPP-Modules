@@ -1,26 +1,29 @@
-NAME		=	Converter
+NAME		= Converter
+OBJ_PATH	= obj
 
-CXX			=	c++
+SRCS		= $(shell find srcs/ -name '*.cpp')
+OBJS		= $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(basename $(SRCS))))
+INCLUDES	= includes/
 
-SRCS		=	$(wildcard *.cpp)
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -I$(INCLUDES) #-fsanitize=address -g
+RM			= rm -f
 
-CXXFLAGS	=	-Wall -Wextra -Werror -g -std=c++98 #-fsanitize=address
+all: $(NAME)
 
-RM			=	rm -f
+$(OBJ_PATH)/%.o:%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -I $(INCLUDES) -I /usr/local/include -c -o $@ $<
 
-OBJS		=	$(SRCS:%.cpp=%.o)
-
-all:		$(NAME)
-
-$(NAME):	$(OBJS)
-		$(CXX) $(SRCS) $(CXXFLAGS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@  $^
 
 clean:
-			$(RM) $(OBJS)
+	rm -rf $(OBJ_PATH)
 
-fclean:		clean
-			$(RM) $(NAME)
+fclean: clean
+	rm -rf $(NAME)
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY: all clean fclean re r m
