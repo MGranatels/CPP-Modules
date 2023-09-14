@@ -14,11 +14,6 @@ ScalarConverter::~ScalarConverter() {
 	std::cout << "\e[0;31mDestructor called of ScalarConverter\e[0m" << std::endl;
 }
 
-void ScalarConverter::message(std::string type, std::string value)
-{
-	std::cout << type << ": " << value << std::endl;
-}
-
 // Operators
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter &assign) {
 	(void) assign;
@@ -56,7 +51,7 @@ void	ScalarConverter::converter(double value)
 		std::cout << "int: impossible" << std::endl;
 	else
 		std::cout << "int: " << static_cast<int>(value) << std::endl;
-	if (value > std::numeric_limits<float>::max() || value < std::numeric_limits<float>::min())
+	if (value > static_cast<double>(std::numeric_limits<float>::max()) || value < static_cast<double>(-FLT_MAX))
 		std::cout << "float: impossible" << std::endl;
 	else
 		std::cout << "float: " << static_cast<float>(value) << "f" << std::endl;
@@ -70,7 +65,7 @@ void	ScalarConverter::converter(float value)
 		std::cout << "non displayable" << std::endl;
 	else
 		std::cout << "'" << static_cast<char>(value) << "'" << std::endl;
-	if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
+	if (value > static_cast<float>(std::numeric_limits<int>::max()) || value < static_cast<float>(std::numeric_limits<int>::min()))
 		std::cout << "int: impossible" << std::endl;
 	else
 		std::cout << "int: " << static_cast<int>(value) << std::endl;
@@ -135,6 +130,7 @@ void	ScalarConverter::converter(std::string value)
 std::string	ScalarConverter::getType(std::string value)
 {
 	int	dot = 0, minus = 0, plus = 0, ifloat = 0, ichar = 0;
+	std::cout << value << std::endl;
 	if (value.empty())
 		impossible();
 	for (size_t i = 0; i < value.size(); i++)
@@ -145,6 +141,9 @@ std::string	ScalarConverter::getType(std::string value)
 		ifloat += (value[i] == 'f');
 		if(std::isalpha(value[i]))
 			ichar++;
+		if (!std::isalpha(value[i]) && !std::isdigit(value[i]) && value[i] != '.' \
+		&& value[i] != '+' && value[i] != '-')
+			impossible();
 		if ((value[i] == 'f' && i != value.size() - 1) \
 		|| (value[i] == '.' && i == value.size() - 1) \
 		|| (value[i] == '-' && i != 0) \
@@ -155,7 +154,13 @@ std::string	ScalarConverter::getType(std::string value)
 	if (value.size() == 1 && !std::isdigit(value[0]))
 		return ("char");
 	else if (dot && ifloat && ichar == 1)
+	{
+		if ((value[value.size() - 2] == '.' && !value[value.size() - 3]) \
+		|| (value[value.size() - 2] == '.' && value[value.size() - 3] == '+')
+		|| (value[value.size() - 2] == '.' && value[value.size() - 3] == '-'))
+			impossible();
 		return ("float");
+	}
 	else if (ichar >= 1)
 		impossible();
 	else if (!dot && !ifloat && value.size() >= 10)
