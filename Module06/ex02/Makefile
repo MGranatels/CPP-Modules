@@ -1,4 +1,4 @@
-NAME		= Converter
+NAME		= Base
 OBJ_PATH	= obj
 
 SRCS		= $(shell find srcs/ -name '*.cpp')

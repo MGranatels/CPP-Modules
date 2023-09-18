@@ -1,4 +1,4 @@
-NAME		= Serializer
+NAME		= Whatever
 OBJ_PATH	= obj
 
 SRCS		= $(shell find srcs/ -name '*.cpp')

@@ -20,14 +20,14 @@ class Whatever {
 			y = tmp;
 		}
 		template <typename T> T const & min(T const &x, T const &y) {
-			if (y <= x)
-				return y;
-			return x;
+			if (x < y)
+				return x;
+			return y;
 		}
 		template <typename T> T const & max(T const &x, T const &y) {
-			if (y >= x)
-				return y;
-			return x;
+			if (x > y)
+				return x;
+			return y;
 		}
 };
 
