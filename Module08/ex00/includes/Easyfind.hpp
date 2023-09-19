@@ -21,5 +21,4 @@ typename T::iterator easyfind(T &list, int fin) {
 		return it;
 }
 
-
 #endif

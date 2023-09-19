@@ -66,7 +66,7 @@ void	BitcoinExchange::parseBitMap(const std::string& line, char delimiter) {
     else if (std::getline(iss, date, delimiter) && std::getline(iss, value)) {
         _bitMap[date] = value;
     }
-	if (!validateDate(date) || !checkValue(value))
+	if (!validateDate(date) || !checkValue(value, line))
 		_bitMap.erase(date);
 }
 
@@ -75,14 +75,23 @@ bool BitcoinExchange::checkEmptyLine(std::string line) const {
 }
 
 
-std::vector<std::string>	BitcoinExchange::splitData(const std::string& line, char delimiter) {
-	std::vector<std::string>	splitLine;
-	std::string					tmp;
-	std::istringstream			iss(line);
+std::vector<std::string> BitcoinExchange::splitData(const std::string& line, char delimiter) {
+    std::vector<std::string> splitLine;
+    std::string tmp;
+    std::istringstream iss(line);
 
-	while (std::getline(iss, tmp, delimiter))
-		splitLine.push_back(tmp);
-	return splitLine;
+    while (std::getline(iss, tmp, delimiter)) {
+        // Remove leading and trailing whitespaces from 'tmp'
+        tmp.erase(tmp.begin(), std::find_if(tmp.begin(), tmp.end(), [](unsigned char ch) {
+            return !std::isspace(ch);
+        }));
+        tmp.erase(std::find_if(tmp.rbegin(), tmp.rend(), [](unsigned char ch) {
+            return !std::isspace(ch);
+        }).base(), tmp.end());
+
+        splitLine.push_back(tmp);
+    }
+    return splitLine;
 }
 
 
@@ -115,61 +124,94 @@ bool	BitcoinExchange::validateDate( std::string date ) {
 	return true;
 }
 
-bool	BitcoinExchange::checkValue(std::string value) {
+bool	BitcoinExchange::checkValue(std::string value, std::string line) {
 	std::vector<std::string>	splitValue = splitData(value, '.');
 	float nb = std::stof(value);
 	if (value.empty())
+	{
+		std::cout << line << "\e[0;31m => Error: Missing value argument!\e[0m" << std::endl;	
 		return false;
+	}
 	if (!checkDigit(splitValue))
+	{
+		std::cout << line << "\e[0;31m => Error: Value can only contain digits!\e[0m" << std::endl;
 		return false;
+	}
 	if (nb > 1000 || nb < 0)
+	{
+		std::cout << line << "\e[0;31m => Error: Value out of bonds!\e[0m" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+bool	BitcoinExchange::validateTxtLines(std::string line, std::vector<std::string> splitTxt)
+{
+	if (line.find('|', 0) == std::string::npos)
+	{
+		std::cout << line << "\e[0;31m => Error: No separation defined for value and Date\e[0m" << std::endl;
+		return false;
+	}
+	if (!validateDate(splitTxt[0]))
+	{
+		std::cout << line << "\e[0;31m => Error: Incorrect Data Format\e[0m" << std::endl;
+		return false;
+	}
+	if (!checkValue(splitTxt[1], line))
+		return false;
+	if (splitTxt.size() != 2)
 		return false;
 	return true;
 }
 
-std::vector<std::string>	BitcoinExchange::readLines() {
-	std::string line;
-	std::vector <std::string>	splitTxt;
+void BitcoinExchange::findClosestDate(std::vector<std::string> splitTxt) {
+    std::string targetDate = splitTxt[0];
+    std::map<std::string, std::string>::const_iterator closestDateIt = _bitMap.begin();
+    float minDifference = std::numeric_limits<float>::max();
 
-  	while (std::getline(_readFile, line)) 
-	{
-		if (line.find("date"))
-			continue;
-		if (checkEmptyLine(line))
-			continue ;
-		if (line.find('|', 0) == std::string::npos) {
-			std::cerr << "\e[0;31mInvalid value format or out of bonds in TXT: \e[0m" << line << std::endl;
-			continue;
-		}
-		splitTxt = splitData(line, '|');
-		if (!checkDigit(splitTxt) || !validateDate(splitTxt[0]) || !checkValue(splitTxt[1])) {
-			std::cerr << "\e[0;31mInvalid value format or out of bonds in TXT: \e[0m" << line << std::endl;
-			continue;
-		}
+    for (std::map<std::string, std::string>::const_iterator it = _bitMap.begin(); it != _bitMap.end(); ++it) {
+        // Calculate the absolute difference between targetDate and the current date
+        float a = std::stof(it->first);
+        float b = std::stof(targetDate);
+        float difference = std::abs(a - b);
+        if (difference < minDifference) {
+            closestDateIt = it;
+            minDifference = difference;
+        }
     }
-	return splitTxt;
+    float closestValue = std::stof(closestDateIt->second);
+	std::cout << splitTxt[0] << " => " << splitTxt[1] << " = " << std::stof(splitTxt[1]) * closestValue << std::endl;
 }
 
- void	BitcoinExchange::executeResults( void ) {
-	std::vector <std::string>	splitTxt;
-	int i = 0;
-	while (i < 2 )
-	{   
-		splitTxt = readLines();
-		if (splitTxt.empty())
-			break;
-		std::map<std::string, std::string>::iterator it = _bitMap.find(splitTxt[0]);
-		if (it != _bitMap.end())
-			std::cout << "No match Found for: " <<   splitTxt[0] << " | " << splitTxt[1] << std::endl;
-		else
+bool	BitcoinExchange::findDate(std::vector<std::string> splitTxt)
+{
+	for (std::map<std::string, std::string>::const_iterator it = _bitMap.begin(); it != _bitMap.end(); ++it) 
+	{
+		if (it->first == splitTxt[0])
 		{
-			std::cout << "Value of txt: " << splitTxt[1] << std::endl;
-			std::cout << "Value of rate in csv: " << it->second << std::endl;
-			//float a = std::stof(splitTxt[1]);
-			//float b = std::stof(it->second);
-
-			//std::cout << splitTxt[0] << "=>" << splitTxt[1]  << "= " << a * b << std::endl;
+			float a = std::stof(it->second);
+			float b = std::stof( splitTxt[1]);
+			std::cout << splitTxt[0] << " => " << splitTxt[1] << " = " << a * b << std::endl;
+			return true;
 		}
+	}
+	return false;
+}
 
+void	BitcoinExchange::executeResults( void ) {
+	std::vector <std::string>	splitTxt;
+	std::string			line;
+
+	std::getline(_readFile, line);
+	while (std::getline(_readFile, line))
+	{  
+		splitTxt = splitData(line, '|');
+		if (!validateTxtLines(line, splitTxt)) {
+			continue;
+		}
+		else
+			if (!findDate(splitTxt))
+				findClosestDate(splitTxt);
+		splitTxt.clear();
 	}
 }
