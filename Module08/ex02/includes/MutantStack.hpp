@@ -25,13 +25,13 @@ class	MutantStack : public std::stack<T> {
 		~MutantStack() {
 			std::cout << "\e[0;33mDestructor called of MutantStack \e[0m" << std::endl;
 		};
-	typedef typename std::deque<T>::iterator iterator;
-	iterator begin() {
-		return this->c.begin();
-	}
-	iterator end() {
-		return this->c.end();
-	}
+		typedef typename std::deque<T>::iterator iterator;
+		iterator begin() {
+			return this->c.begin();
+		}
+		iterator end() {
+			return this->c.end();
+		}
 };
 
 #endif

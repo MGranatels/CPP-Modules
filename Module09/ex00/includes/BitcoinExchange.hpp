@@ -25,7 +25,7 @@ class	BitcoinExchange {
 		//Class Methods
 		// std::ifstream	getFileStream( void ) const;
 		int		checkFile( void );
-		bool	checkValue(std::string value, std::string line);
+		bool	checkValue(std::string value, std::string line, int file);
 		bool	checkEmptyLine(std::string line) const;
 		bool	validateDate(std::string date);
 		bool	checkDigit(std::vector<std::string> str);
@@ -35,6 +35,7 @@ class	BitcoinExchange {
 		void	parseBitMap(const std::string& line, char delimiter);
 		void	printMap( void );
 		void	executeResults( void );
+		int		countCharacterOccurrences(const std::string& str, char ch);
 		std::vector<std::string>			readLines( void );
 		std::vector<std::string>			splitData(const std::string& line, char delimiter);
 		std::map<std::string, std::string>	getBitMap( void ) const;
