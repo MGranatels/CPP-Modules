@@ -54,7 +54,7 @@ void	Span::addListNumber(unsigned int amount)
 	if (amount > this->_max)
 		throw LimitArrayException();
 	srand(time(NULL));
-	while (amount >= 0)
+	while (amount > 0)
 	{
 		int	randomValue = rand();
 			addNumber(randomValue);

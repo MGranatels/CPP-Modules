@@ -7,7 +7,7 @@ int main ()
 	data->s1 = "Badgelgeh";
 	Data *testing;
 
-	uintptr_t raw = Serializer::serialize(data);
+	size_t raw = Serializer::serialize(data);
 
 	std::cout << data->n << " " << data->s1 << std::endl;
 	std::cout << "Adress of Data Struct: " << data << std::endl;

@@ -97,20 +97,35 @@ void	ScalarConverter::converterType(std::string value)
 {
 	const std::string existingTypes[4] = {"int", "char", "float", "double"};
 	std::string type = getType(value);
-	std::cout << "Type: " << getType(value) << std::endl;
+	
 	int i = 0;
 
 	while (i < 4 && existingTypes[i].compare(type))
 		i++;
 	switch (i + 1) {
 	case 1:
-		return converter(std::stoi(value));
-	case 2:	
+	{
+		std::istringstream numberStream(value);
+		int	valueInt;
+		numberStream >> valueInt; 
+		return converter(valueInt);
+	}
+	case 2:
 		return converter(value[0]);
 	case 3:
-		return converter(std::stof(value));
+	{
+		std::istringstream numberStream(value);
+		float	valueFloat;
+		numberStream >> valueFloat; 
+		return converter(valueFloat);
+	}
 	case 4:
-		return converter(std::stod(value));
+	{
+		std::istringstream numberStream(value);
+		double	valueDouble;
+		numberStream >> valueDouble; 
+		return converter(valueDouble);
+	}
 	}
 }
 
@@ -130,7 +145,6 @@ void	ScalarConverter::converter(std::string value)
 std::string	ScalarConverter::getType(std::string value)
 {
 	int	dot = 0, minus = 0, plus = 0, ifloat = 0, ichar = 0;
-	std::cout << value << std::endl;
 	if (value.empty())
 		impossible();
 	for (size_t i = 0; i < value.size(); i++)

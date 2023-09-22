@@ -20,7 +20,7 @@ class	Serializer {
 		~Serializer();
 		Serializer & operator=(const Serializer &assign);
 
-		static uintptr_t	serialize(Data* ptr);
-		static	Data* deserialize(uintptr_t raw);
+		static size_t	serialize(Data* ptr);
+		static	Data* deserialize(size_t raw);
 };		
 #endif
