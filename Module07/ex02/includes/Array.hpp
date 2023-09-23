@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <string>
+# include <cstdlib>
+# include <ctime>
 
 template <typename T>
 class	Array {
