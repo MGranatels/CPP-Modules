@@ -51,14 +51,11 @@ bool	RPN::isOperation(char c)
 }
 
 bool	RPN::checkDigit(std::string str) {
-	for (char c : str)
+	for (unsigned int i = 0; i < str.size(); i++)
 	{
-		if (!std::isdigit(c) && !isOperation(c) && !std::isspace(c))
-		{
-			std::cout << c << std::endl;
+		if (!std::isdigit(str[i]) && !isOperation(str[i]) && !std::isspace(str[i]))
 			return false;
-		}
-		if (c == 46 || c == 44)
+		if (str[i] == 46 || str[i] == 44)
 			return false;
 	}
 	return true;

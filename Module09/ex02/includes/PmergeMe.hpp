@@ -9,8 +9,7 @@
 # include <cstdlib>
 # include <ctime>
 # include <string>
-# include <chrono>
-# include <iomanip>
+# include <sys/time.h>
 
 class	PmergeMe {
 	private:
@@ -48,5 +47,15 @@ class	PmergeMe {
 			return ss.str();
 		}
 };
+	namespace std 
+	{
+		template <typename T>
+		std::string to_string(T value)
+		{
+			std::ostringstream os;
+			os << value;
+			return os.str();
+		}
+	};
 
 #endif

@@ -37,13 +37,10 @@ std::string	PmergeMe::getArgs( void ) const {
 }
 
 bool	PmergeMe::checkDigit(std::string str) {
-	for (char c : str)
+	for (unsigned int i = 0; i < str.size(); i++)
 	{
-		if (!std::isdigit(c) && !std::isspace(c) && c != '+')
-		{
-			std::cout << c << std::endl;
+		if (!std::isdigit(str[i]) && !std::isspace(str[i]) && str[i] != '+')
 			return false;
-		}
 	}
 	return true;
 }
@@ -53,6 +50,7 @@ void	PmergeMe::parseAndAddToLists( void ) {
     std::string token;
 	std::string	max = std::to_string(INT_MAX);
 	int num;
+
     while (iss >> token) {
         if (token == "+")
             continue;
@@ -88,7 +86,7 @@ void	PmergeMe::printLists( void ) {
 
 void PmergeMe::insertionList()
 {
-    for (std::list<std::pair<int, int>>::iterator it = _listPair.begin(); it != _listPair.end(); ++it)
+    for (std::list<std::pair<int, int> >::iterator it = _listPair.begin(); it != _listPair.end(); ++it)
     {
         if (_sortedList.empty()) {
             _sortedList.push_back(it->first);
@@ -133,6 +131,10 @@ void PmergeMe::mergeInsertList( void )
 	insertionList();
 }
 
+void	emplace() {
+
+}
+
 void PmergeMe::insertionDeque( void )
 {
 	if (_secondDeck.size() % 2 != 0) {
@@ -150,25 +152,16 @@ void PmergeMe::insertionDeque( void )
 		while (it != _firstDeck.end() && *it < _secondDeck.front()) {
 			++it;
 		}
-		_firstDeck.emplace(it, _secondDeck.front());
-		//_firstDeck.insert(it2, _secondDeck.front());
+		_firstDeck.insert(it, _secondDeck.front());
 		_secondDeck.pop_front();
 
 		while (it != _firstDeck.end() && *it < _secondDeck.back()) {
 			++it;
 		}
-		_firstDeck.emplace(it, _secondDeck.back());
-		//_firstDeck.insert(it, _secondDeck.back());
+		_firstDeck.insert(it, _secondDeck.back());
 		_secondDeck.pop_back();
 	}
 }
-
-/*
-myDeque.push_back(4);
-myDeque.push_front(0);
-myDeque.pop_back();
-myDeque.pop_front();
-*/
 
 void PmergeMe::mergeInsertDeque( void )
 {
@@ -199,27 +192,29 @@ void PmergeMe::mergeInsertDeque( void )
 }
 
 void	PmergeMe::executer( void )  {
-	long double deckTime;
-	long double listTime;
+	struct timeval	start, end;
+	float			miliseconds;
 
 	std::cout << "Before: " << printer(_myList) << std::endl;
-	std::cout << "After: " << printer(_firstDeck) << std::endl;
-	std::clock_t start = std::clock();
+	gettimeofday(&start, NULL);
 	mergeInsertList();
-	listTime = (double)((std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000));
-	start = std::clock();
+	gettimeofday(&end, NULL);
+	miliseconds = static_cast<float>(static_cast<float>(end.tv_sec - start.tv_sec) * 1000 + static_cast<float>(end.tv_usec - start.tv_usec) / 1000);
+	std::cout << "After: " << printer(_sortedList) << std::endl;
+	std::cout << "Time to process a range of " << _size << " elements with std::deck: " << miliseconds << " ms" << std::endl;
+	gettimeofday(&start, NULL);
 	mergeInsertDeque();
-	deckTime = (double)((std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000));
+	gettimeofday(&end, NULL);
+	miliseconds = static_cast<float>(static_cast<float>(end.tv_sec - start.tv_sec) * 1000 + static_cast<float>(end.tv_usec - start.tv_usec) / 1000);
 	//printLists();
-	std::cout << "Time to process a range of " << _size << " elements with std::deck: " << deckTime << " ms" << std::endl;
-	std::cout << "Time to process a range of " << _size << " elements with std::list: " << listTime << " ms" << std::endl;
+	std::cout << "Time to process a range of " << _size << " elements with std::list: " << miliseconds << " ms" << std::endl;
 }
 
 // Function that returns the timestamp()
 
 void	PmergeMe::printPairs()
 {
-	 std::list<std::pair<int, int>>::iterator it;
+	 std::list<std::pair<int, int > >::iterator it;
 
     for (it = _listPair.begin(); it != _listPair.end(); ++it) {
         std::pair<int, int> pair = *it;
